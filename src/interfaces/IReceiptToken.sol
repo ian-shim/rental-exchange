@@ -14,4 +14,5 @@ interface IReceiptToken is IERC721 {
     function mint(address owner, address borrower, address collection, uint256 tokenId, uint256 expiration) external returns (uint256);
     function redeem(uint256 receiptId) external;
     function getReceiptData(uint256 receiptId) external view returns (ReceiptData memory);
+    function totalCount() external view returns (uint256);
 }

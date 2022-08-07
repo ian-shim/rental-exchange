@@ -80,7 +80,8 @@ contract MatchAskWithBid is Test {
             WETH.balanceOf(lender),
             0.012 ether * numHours * (10000 - protocol_fee_rate) / 10000
         );
-        assertEq(receiptToken.ownerOf(0), lender);
+        uint256 receiptId = receiptToken.totalCount() - 1;
+        assertEq(receiptToken.ownerOf(receiptId), lender);
 
         IReceiptToken.ReceiptData memory receiptData = IReceiptToken.ReceiptData(
             address(collection),
@@ -88,23 +89,23 @@ contract MatchAskWithBid is Test {
             address(appWallet),
             block.timestamp + numHours * 1 hours
         );
-        assertEq(abi.encode(receiptToken.getReceiptData(0)), abi.encode(receiptData));
+        assertEq(abi.encode(receiptToken.getReceiptData(receiptId)), abi.encode(receiptData));
 
         vm.prank(lender);
         vm.expectRevert("Borrow period has not expired yet");
-        receiptToken.redeem(0);
+        receiptToken.redeem(receiptId);
 
         vm.warp(block.timestamp + 1 days);
         vm.prank(BORROWER);
         vm.expectRevert("Not approved or the owner of the receipt");
-        receiptToken.redeem(0);
+        receiptToken.redeem(receiptId);
 
         vm.prank(lender);
-        receiptToken.redeem(0);
+        receiptToken.redeem(receiptId);
 
         assertEq(collection.ownerOf(target.tokenId), lender);
         vm.expectRevert("Receipt does not exist");
-        receiptToken.getReceiptData(0);
+        receiptToken.getReceiptData(receiptId);
     }
 
     function issueAppWallet() public returns (INFTNFTWalletProxy) {
@@ -129,7 +130,7 @@ contract MatchAskWithBid is Test {
             true,
             lender,
             FIXED_PRICE_STRATEGY,
-            0,
+            1657675492,
             block.timestamp,
             block.timestamp + 3 days,
             "",

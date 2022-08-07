@@ -222,6 +222,51 @@ contract RentalExchangeTest is Test {
         ));
     }
 
+    function testSignature2() public {
+        bytes memory signature = hex"c2e35e778f866a1c2d64cbd5dab61f359a17c9c991bec7b0b1a188585b7e73672452ee50002cab87b62007af7d91190862fd215689e5a0b2b3589b99cdbf02381b";
+        OrderTypes.Target memory target = OrderTypes.Target(
+            0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b,
+            765318,
+            1
+        );
+
+        OrderTypes.MakerRentConfig memory config = OrderTypes.MakerRentConfig(
+            target,
+            0.002 ether,
+            1,
+            4,
+            0x0Bb7509324cE409F7bbC4b701f932eAca9736AB7
+        );
+        emit log_uint(block.timestamp);
+        OrderTypes.MakerOrder memory makerAsk = OrderTypes.MakerOrder(
+            config,
+            true,
+            0x891e3465fCD6A67D13762487D2E326e0bF55De2F,
+            0x21a215E51c496d63B0af33FE268fc1E909de4126,
+            1657822389,
+            1657822389,
+            1687822389,
+            "",
+            ""
+        );
+        bytes32 orderHash = makerAsk.hash();
+        bytes32 domainSeparator = keccak256(
+            abi.encode(
+                0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f, // keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)")
+                0x626af73bd36f97b6b0f094db8772850c4a6e2eaec1b1dc866a93994f3d5fc53a, // keccak256("RentalExchange")
+                0xc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc6, // keccak256(bytes("1")) for versionId = 1
+                5,
+                0x1302727142cEfebDf3d781646bd29EDb4401Af25
+            )
+        );
+
+        assertTrue(SignatureChecker.isValidSignatureNow(
+            0x891e3465fCD6A67D13762487D2E326e0bF55De2F,
+            ECDSA.toTypedDataHash(domainSeparator, orderHash),
+            signature
+        ));
+    }
+
     function getMakerOrder(
         bool isAsk,
         address lender,

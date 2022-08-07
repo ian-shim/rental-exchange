@@ -91,7 +91,7 @@ contract ReceiptTokenTest is Test {
         uint256 receiptId = receiptToken.mint(eoaLender, borrower, collection, tokenId, expiration);
         assertEq(
             receiptToken.tokenURI(receiptId),
-            "data:application/json;base64,eyJuYW1lIjoiTkZUIFJlbnQgUmVjZWlwdCIsImRlc2NyaXB0aW9uIjoiUmVjZWlwdCBmb3IgYW4gTkZUIHJlbnRhbCIsImF0dHJpYnV0ZXMiOiJbeyJ0cmFpdF90eXBlIjoiY29sbGVjdGlvbiIsInZhbHVlIjoiMHhjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIn17InRyYWl0X3R5cGUiOiJ0b2tlbklkIiwidmFsdWUiOiIxMjM0In17InRyYWl0X3R5cGUiOiJib3Jyb3dlciIsInZhbHVlIjoiMHhkZWFkYmVlZmRlYWRiZWVmZGVhZGJlZWZkZWFkYmVlZmRlYWRiZWVmIn17InRyYWl0X3R5cGUiOiJleHBpcmF0aW9uIiwidmFsdWUiOiIxNjU3Mzk4NzEwMzUwIn1dIn0="
+            "data:application/json;base64,eyJuYW1lIjoiTkZUIFJlbnQgUmVjZWlwdCIsImRlc2NyaXB0aW9uIjoiUmVjZWlwdCBmb3IgYW4gTkZUIHJlbnRhbCIsImF0dHJpYnV0ZXMiOiBbeyJ0cmFpdF90eXBlIjoiY29sbGVjdGlvbiIsInZhbHVlIjoiMHhjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIn0seyJ0cmFpdF90eXBlIjoidG9rZW5JZCIsInZhbHVlIjoiMTIzNCJ9LHsidHJhaXRfdHlwZSI6ImJvcnJvd2VyIiwidmFsdWUiOiIweGRlYWRiZWVmZGVhZGJlZWZkZWFkYmVlZmRlYWRiZWVmZGVhZGJlZWYifSx7InRyYWl0X3R5cGUiOiJleHBpcmF0aW9uIiwidmFsdWUiOiIxNjU3Mzk4NzEwMzUwIn1dfQ=="
         );
     }
 

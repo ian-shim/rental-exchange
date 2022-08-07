@@ -93,12 +93,12 @@ contract ReceiptToken is ERC721, IReceiptToken, Ownable {
                             string.concat(
                                 '{"name":"NFT Rent Receipt",',
                                  '"description":"Receipt for an NFT rental",',
-                                 '"attributes":"[',
-                                    '{"trait_type":"collection","value":"', Strings.toHexString(collection),'"}',
-                                    '{"trait_type":"tokenId","value":"', Strings.toString(tokenId),'"}',
-                                    '{"trait_type":"borrower","value":"', Strings.toHexString(borrower),'"}',
+                                 '"attributes": [',
+                                    '{"trait_type":"collection","value":"', Strings.toHexString(collection),'"},',
+                                    '{"trait_type":"tokenId","value":"', Strings.toString(tokenId),'"},',
+                                    '{"trait_type":"borrower","value":"', Strings.toHexString(borrower),'"},',
                                     '{"trait_type":"expiration","value":"', Strings.toString(expiration),'"}',
-                                 ']"}'
+                                 ']}'
                             )
                         )
                     )
